@@ -1,0 +1,21 @@
+.App {
+  .btn {
+    background: #124885;
+    outline: none;
+    border: none;
+    width: 100%;
+  }
+
+  .btn:active {
+    background: #0b3769;
+  }
+
+  .btn:hover {
+    background: #0b3769;
+  }
+
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
+}
