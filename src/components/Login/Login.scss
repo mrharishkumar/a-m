@@ -1,0 +1,25 @@
+.Login {
+  // padding-top: 2%;
+
+  Form {
+    background-color: #eee;
+    border-radius: 8px;
+    box-shadow: 4px 0px 9px 1px rgba(138, 138, 138, 0.75);
+    -webkit-box-shadow: 4px 0px 9px 1px rgba(138, 138, 138, 0.75);
+    -moz-box-shadow: 4px 0px 9px 1px rgba(138, 138, 138, 0.75);
+    margin-top: 22%;
+
+    .logo {
+      width: 120px;
+    }
+
+    .label {
+      visibility: hidden;
+    }
+
+    .error {
+      font-size: 0.9em;
+      color: #f44;
+    }
+  }
+}
