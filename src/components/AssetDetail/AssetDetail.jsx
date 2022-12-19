@@ -1,12 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import { Col, Container, Row } from "react-bootstrap";
+
+import Product from "../Product/Product";
+
+import { createAPIEndpoint, ENDPOINTS } from "../../services/api.service";
+import authService from "../../services/auth.service";
 
 import "./AssetDetail.scss";
 
 const AssetDetail = (props) => {
-  
+  const [remarks, setRemarks] = useState("");
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setRemarks(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    props.onHide();
+    const token = authService.getAuthToken();
+
+    if (!token) {
+      authService.logout();
+      navigate("/");
+    } else {
+      createAPIEndpoint(ENDPOINTS.ASSETREQUESTADD)
+        .create(
+          {
+            asset_id: props.serial_number,
+            remarks: remarks,
+          },
+          token
+        )
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   return (
     <div className="AssetDetail">
       <Modal
@@ -14,40 +49,46 @@ const AssetDetail = (props) => {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        
       >
-        <Modal.Header closeButton className="mx-4 mt-4">
-          <Modal.Title id="contained-modal-title-vcenter">
-          <h4>{props.title || "Title"}</h4>
-          </Modal.Title>
+        <Modal.Header
+          closeButton
+          className="mx-4 mt-4 text-capitalize text-secondary fst-italic"
+        >
+          Asset Detail
         </Modal.Header>
         <Modal.Body className="ps-5 pe-5">
-         
-          <p>
-            {props.detail ||
-              "You can plug the Logitech B100 wired optical mouse into the USB port of your computer or laptop, and it will be ready for use. It sports an ambidextrous design that lets both right- and left-handed users use it conveniently. Plus, its robust build ensures a reliable lifespan."}
-          </p>
-          <hr />
-          <Form>
-            <Form.Group className="mb-3" controlId="status">
-              <Form.Label>Note</Form.Label>
+          <Container fluid>
+            <Row>
+              <Col md={6}>
+                <Product asset={props} />
+              </Col>
+              <Col md={6}>
+                <Form>
+                  <Form.Group className="mb-3  fst-italic" controlId="status">
+                    <Form.Label>Remark</Form.Label>
 
-              <Form.Control
-          
-                as="textarea"
-                placeholder="Leave a comment here"
-                style={{ height: "100px" }}
-              />
-            </Form.Group>
+                    <Form.Control
+                      as="textarea"
+                      placeholder="Leave a comment here"
+                      style={{ height: "340px" }}
+                      name="rs"
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Group>
 
-            
-            <div className="text-end mt-4">
-              <Button className="btn btn-success px-4 " onClick={props.onHide}>
-                Submit
-              </Button>
-              
-            </div>
-          </Form>
+                  <div className="text-end mt-4">
+                    <Button
+                      className="btn btn-success px-4 "
+                      onClick={handleSubmit}
+                    >
+                      Submit
+                    </Button>
+                  </div>
+                </Form>
+              </Col>
+            </Row>
+          </Container>
         </Modal.Body>
       </Modal>
     </div>

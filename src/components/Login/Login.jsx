@@ -53,16 +53,20 @@ const Login = () => {
   };
 
   return (
-    <div className="Login pt-5">
+    <div className="Login pt-5 ">
       <Row className="justify-content-center pt-5">
-        <Col xs={8} md={5} lg="4">
+        <Col xs={8} md={5} lg="4" className="px-5">
           <Form className="p-5" onSubmit={handleSubmit} autoComplete="false">
             <Row className="justify-content-md-center">
               <img
-                src="./assets/images/impressico-logo.png"
+                src="./assets/images/ibs-logo-big.png"
                 alt="logo"
-                className="logo center"
+                className="logo"
               />
+              <div className="text-center fst-italic text-bold">
+                <h2 className="fs-5 pt-3 text-upper fw-bold"> Sign in to Asset Management</h2>
+                <p className="text-secondary">Enter your details below</p>
+              </div>
             </Row>
             <Form.Group controlId="username">
               <Form.Label className="label">Username</Form.Label>

@@ -9,6 +9,9 @@ export const ENDPOINTS = {
   VERIFYTOKEN: "auth/token/verify",
   ASSET: "assets",
   LOGOUT: "auth/logout",
+  ASSETREQUEST: "assetrequests",
+  ASSETREQUESTADD: "assetrequests/add",
+  DELETEASSETREQUEST: "assetrequests/delete",
 };
 
 export const createAPIEndpoint = (endpoint) => {

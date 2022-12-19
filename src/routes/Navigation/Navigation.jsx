@@ -3,10 +3,8 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
-
+import { AiFillHome } from "react-icons/ai";
 import "./Navigation.scss";
-
-import { Button } from "react-bootstrap";
 import authService from "../../services/auth.service";
 
 const Navigation = () => {
@@ -24,27 +22,20 @@ const Navigation = () => {
       {currentLocation !== "/" && (
         <Navbar className="Navbar">
           <Container fluid>
-            <Navbar.Brand href="#home">
-              <img
-                className="logo top-heading"
-                href="/MyDevice"
-                src="assets/images/impressico-logo.png"
-                alt="logo"
-              />
-            </Navbar.Brand>
             <Nav className="me-auto">
               <NavLink to="/home">
-                <span className="Navlink">Home</span>
-              </NavLink>
-
-              <NavLink to="/my_device">
-                <span className="Navlink">My Devices</span>
+                <span className="Navlink">
+                  <AiFillHome className="fs-4" />
+                </span>
               </NavLink>
             </Nav>
             <Nav>
-              <Button onClick={handelLogout}>
-                <span className="Navlink">Logout</span>
-              </Button>
+              <NavLink to="/my_device">
+                <span className="Navlink fst-italic">My Device's</span>
+              </NavLink>
+              <span className="Navlink fst-italic" onClick={handelLogout}>
+                  Logout
+              </span>
             </Nav>
           </Container>
         </Navbar>

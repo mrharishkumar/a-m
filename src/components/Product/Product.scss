@@ -3,8 +3,11 @@
 
   .Card {
     width: 100%;
-    box-shadow: 4px 0px 9px 1px rgba(138, 138, 138, 0.75);
-    -webkit-box-shadow: 4px 0px 9px 1px rgba(138, 138, 138, 0.75);
-    -moz-box-shadow: 4px 0px 9px 1px rgba(138, 138, 138, 0.75);
+    // box-shadow: 4px 0px 9px 1px rgba(138, 138, 138, 0.75);
+    // -webkit-box-shadow: 4px 0px 9px 1px rgba(138, 138, 138, 0.75);
+    // -moz-box-shadow: 4px 0px 9px 1px rgba(138, 138, 138, 0.75);
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   }
 }
+
+

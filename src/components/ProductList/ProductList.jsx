@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Row, Container, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 import Product from "../Product/Product";
 
@@ -10,60 +11,63 @@ import "./ProductList.scss";
 
 const ProductList = () => {
   const [assets, setAssets] = useState();
+  const navigate = useNavigate();
 
-  const accessToken = authService.getAuthToken();
+  const getAllAssets = useCallback(() => {
+    const accessToken = authService.getAuthToken();
 
-  const getAllAssets = () => {
-    createAPIEndpoint(ENDPOINTS.ASSET)
-      .fetchAll(accessToken)
-      .then((response) => {
-        setAssets(response.data.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+    if (!accessToken) {
+      authService.logout();
+      navigate("/");
+    } else {
+      createAPIEndpoint(ENDPOINTS.ASSET)
+        .fetchAll(accessToken)
+        .then((response) => {
+          setAssets(response.data.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }, [navigate]);
 
   useEffect(() => {
     getAllAssets();
-  }, []);
+  }, [getAllAssets]);
 
   return (
-    assets && (
-      <div className="ProductList">
-        <Container>
-          <Row key={Math.random()}>
-            <Col md={6} key={Math.random()}>
-              <div className="logo float-left">
-                <a href="/">
-                  <img
-                    className="logo top-heading"
-                    href="/MyDevice"
-                    src="assets/images/impressico-logo.png"
-                    alt="logo"
-                  />
-                </a>
-              </div>
-              <span>Impressico Business Solutions</span>
-            </Col>
-            <Col md={6} key={Math.random()}>
-              <h3 className="title">Available assets</h3>
-            </Col>
-          </Row>
-          <hr key={Math.random()} />
-          <Row
-            sm={2}
-            lg={4}
-            className="justify-content-center"
-            key={Math.random()}
-          >
-            {assets.map((asset) => (
-              <Product key={asset.id} asset={asset} />
+    <div className="ProductList p-5">
+      <Container fluid>
+        <Row key={Math.random()}>
+          <Col md={4} key={Math.random()} className="mt-2">
+            <img
+              className="logo"
+              src="assets/images/ibs-logo-big.png"
+              alt="logo"
+            />
+          </Col>
+          <Col key={Math.random()} md={4}></Col>
+          <Col md={4} key={Math.random()}>
+            <h3 className="title glow float-end">Available assets</h3>
+          </Col>
+        </Row>
+        <Row
+          sm={2}
+          md={5}
+          className="justify-content-center py-3"
+          key={Math.random()}
+        >
+          {assets &&
+            assets.map((asset) => (
+              <Product
+                key={asset.serial_number}
+                asset={asset}
+                withButton={true}
+              />
             ))}
-          </Row>
-        </Container>
-      </div>
-    )
+        </Row>
+      </Container>
+    </div>
   );
 };
 

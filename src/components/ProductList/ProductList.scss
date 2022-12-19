@@ -1,18 +1,29 @@
 .ProductList {
-  margin-top: 30px;
+  margin-top: 5px;
 }
-
-
 .logo{
-  width: 60px;
-  height: fit-content;
-  
- 
+  width: 14%;
 }
+
 
 .title {
   text-align: right;
   padding-top: 8%;
   text-transform: capitalize;
   font-weight: bold;
+}
+
+.glow {
+  
+  color: rgb(8, 46, 82);
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 1px #fff, 0 0 1px #fff, 0 0 1px #3977c9, 0 0 1px #3689cc, 0 0 1px #3170c2, 0 0 1px #2e6cb3;
+  }
 }

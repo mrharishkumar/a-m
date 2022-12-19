@@ -7,15 +7,12 @@ import Navigation from "./routes/Navigation/Navigation";
 import Home from "./routes/Home/Home";
 import MyDevice from "./components/MyDevice/MyDevice";
 
-import { useUser } from "./reducers/user";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 import tokenService from "./services/token.service";
 import authService from "./services/auth.service";
 
 function App() {
-  const user = useUser();
   const navigate = useNavigate();
   const location = useLocation().pathname;
 
@@ -23,12 +20,10 @@ function App() {
     let localUser = tokenService.getUser();
 
     if (localUser && !tokenService.isAccessTokenExpired()) {
-      user.setUser(localUser);
       if (location === "/") navigate("/home");
     } else if (localUser && !tokenService.isRefreshTokenExpired()) {
       authService.refreshToken();
       localUser = tokenService.getUser();
-      user.setUser(localUser);
       if (location === "/") navigate("/home");
     } else {
       navigate("/");

@@ -1,7 +1,8 @@
 .Navigation {
   .Navbar {
     height: 48px;
-    background-color: #323979;
+    // background-color: #323979;
+    background-color: #1e2461f3;
 
     .Navlink {
       color: #ddd;
@@ -9,10 +10,16 @@
       margin-left: 20px;
       text-shadow: 1px 1px 1px #222;
       text-transform: uppercase;
+      cursor: pointer;
 
       &:last-child {
         margin-right: 20px;
       }
     }
   }
+}
+
+.logos{
+  height:40px;
+  width:48px;
 }
