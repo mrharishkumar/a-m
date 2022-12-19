@@ -21,7 +21,6 @@ const AssetDetail = (props) => {
   };
 
   const handleSubmit = () => {
-    props.onHide();
     const token = authService.getAuthToken();
 
     if (!token) {
@@ -36,6 +35,9 @@ const AssetDetail = (props) => {
           },
           token
         )
+        .then((res) => {
+          if (res.status === 200) props.onHide();
+        })
         .catch((err) => {
           console.log(err);
         });
@@ -73,7 +75,7 @@ const AssetDetail = (props) => {
                       style={{ height: "340px" }}
                       name="rs"
                       onChange={handleChange}
-                      required
+                      required={true}
                     />
                   </Form.Group>
 
@@ -81,6 +83,7 @@ const AssetDetail = (props) => {
                     <Button
                       className="btn btn-success px-4 "
                       onClick={handleSubmit}
+                      disabled={!remarks}
                     >
                       Submit
                     </Button>
