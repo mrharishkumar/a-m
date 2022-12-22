@@ -6,6 +6,7 @@ import { Row, Col } from "react-bootstrap";
 import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const Login = () => {
       .login(username, password)
       .then(() => {
         navigate("/home", { replace: true });
+        toast("You are now logged in.");
       })
       .catch((error) => {
         console.log(error);
@@ -64,7 +66,10 @@ const Login = () => {
                 className="logo"
               />
               <div className="text-center fst-italic text-bold">
-                <h2 className="fs-5 pt-3 text-upper fw-bold"> Sign in to Asset Management</h2>
+                <h2 className="fs-5 pt-3 text-upper fw-bold">
+                  {" "}
+                  Sign in to Asset Management
+                </h2>
                 <p className="text-secondary">Enter your details below</p>
               </div>
             </Row>

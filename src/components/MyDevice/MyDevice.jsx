@@ -6,11 +6,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
-// import Pagination from "react-bootstrap/Pagination";
 import { RxCross2 } from "react-icons/rx";
 import CountUp from "react-countup";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 
 import { createAPIEndpoint, ENDPOINTS } from "../../services/api.service";
 import tokenService from "../../services/token.service";
@@ -18,6 +15,7 @@ import authService from "../../services/auth.service";
 
 import "../MyDevice/MyDevice.scss";
 import { useCallback } from "react";
+import { toast } from "react-toastify";
 
 const MyDevice = () => {
   const [details, setDetails] = useState([]);
@@ -62,28 +60,10 @@ const MyDevice = () => {
         .delete(e.id, tokenService.getAccessToken())
         .then(() => {
           loadData();
+          toast("Request deleted.");
         });
     }
   };
-
-  const Page = ({ totalPost, postsPerPage }) => {
-    let pages = [];
-    for (let i = 1; i <= Math.ceil(totalPost / postsPerPage); i++) {
-      pages.push(i);
-    }
-  };
-
-
-  //Pagination
-  let active = 1;
-  let items = [];
-  for (let number = 1; number <= 2; number++) {
-    items.push(
-      <Pagination.Item key={number} active={number === active}>
-        {number}
-      </Pagination.Item>
-    );
-  }
 
   useEffect(() => {
     const total = details.length;
@@ -99,7 +79,7 @@ const MyDevice = () => {
   const filterDetails = (detailsArr, value) => {
     return detailsArr.filter((detail) => {
       if (!value) return detail;
-      return detail.status.toLowerCase() === value;   
+      return detail.status.toLowerCase() === value;
     });
   };
 
@@ -158,6 +138,9 @@ const MyDevice = () => {
                           </Dropdown.Item>
                           <Dropdown.Item eventKey="denied">
                             Denied
+                          </Dropdown.Item>
+                          <Dropdown.Item eventKey="returned">
+                            Returned
                           </Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
@@ -222,12 +205,6 @@ const MyDevice = () => {
                     })}
                 </tbody>
               </Table>
-              <div className="d-flex justify-content-center">
-                <Stack spacing={2}>
-                  <Pagination count={2}  page={1}  color="primary" className="pb-4 pt-2" />
-                 
-                </Stack>
-              </div>
             </Row>
           </Container>
         </Row>

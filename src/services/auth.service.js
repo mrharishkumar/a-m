@@ -9,12 +9,21 @@ const authService = {
     );
     if (response.data.access) {
       tokenService.setUser(response.data);
+      const nresponse = await createAPIEndpoint(
+        ENDPOINTS.GETUSERNAME
+      ).getUserName(tokenService.getAccessToken());
+      localStorage.setItem("username", nresponse.data.data[0].username);
     }
     return response.data;
   },
 
+  getUserName: () => {
+    return localStorage.getItem("username");
+  },
+
   logout: () => {
     tokenService.removeUser();
+    localStorage.removeItem("username");
   },
 
   refreshToken: async () => {
@@ -22,7 +31,6 @@ const authService = {
     await createAPIEndpoint(ENDPOINTS.REFRESHTOKEN)
       .refreshToken(refresh)
       .then((response) => {
-        console.log(response.data);
         tokenService.updateAccessToken(response.data.access);
       });
   },

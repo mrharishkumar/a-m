@@ -42,7 +42,7 @@ const tokenService = {
       return false;
     }
 
-    return true;
+    return false;
   },
 
   isRefreshTokenExpired: () => {

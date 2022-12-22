@@ -4,8 +4,11 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
+
 import "./Navigation.scss";
+
 import authService from "../../services/auth.service";
+import { toast } from "react-toastify";
 
 const Navigation = () => {
   const currentLocation = useLocation().pathname;
@@ -14,6 +17,7 @@ const Navigation = () => {
 
   const handelLogout = async () => {
     authService.logout();
+    toast("Logged out successfully.");
     navigate("/");
   };
 
@@ -28,13 +32,16 @@ const Navigation = () => {
                   <AiFillHome className="fs-4" />
                 </span>
               </NavLink>
+              <span className="fs-5 fst-italic text-light">
+                Welcome ! {authService.getUserName()}
+              </span>
             </Nav>
             <Nav>
               <NavLink to="/my_device">
                 <span className="Navlink fst-italic">My Device's</span>
               </NavLink>
               <span className="Navlink fst-italic" onClick={handelLogout}>
-                  Logout
+                Logout
               </span>
             </Nav>
           </Container>

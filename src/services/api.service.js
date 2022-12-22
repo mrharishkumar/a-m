@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://assets-management.onrender.com/api/";
+const BASE_URL = "http://127.0.0.1:8000/api/";
 
 export const ENDPOINTS = {
   EMPLOYEES: "employees",
@@ -12,6 +12,7 @@ export const ENDPOINTS = {
   ASSETREQUEST: "assetrequests",
   ASSETREQUESTADD: "assetrequests/add",
   DELETEASSETREQUEST: "assetrequests/delete",
+  GETUSERNAME: "auth/getusername",
 };
 
 export const createAPIEndpoint = (endpoint) => {
@@ -89,6 +90,15 @@ export const createAPIEndpoint = (endpoint) => {
         url: url,
         data: {
           refresh: refresh,
+        },
+      }),
+
+    getUserName: (token) =>
+      axios({
+        method: "get",
+        url: url,
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
       }),
   };

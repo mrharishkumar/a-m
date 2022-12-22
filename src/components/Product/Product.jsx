@@ -6,7 +6,7 @@ import AssetDetail from "../AssetDetail/AssetDetail";
 
 import "./Product.scss";
 
-const Product = ({ asset, withButton }) => {
+const Product = ({ asset, getAllAssets, withButton }) => {
   const { asset_name, company, image_url, model, serial_number } = asset;
   const [modalShow, setModalShow] = React.useState(false);
 
@@ -63,6 +63,7 @@ const Product = ({ asset, withButton }) => {
                 asset_name={asset_name}
                 company={company}
                 show={modalShow}
+                getAllAssets={getAllAssets}
                 onHide={() => setModalShow(false)}
               />
             </Card.Body>

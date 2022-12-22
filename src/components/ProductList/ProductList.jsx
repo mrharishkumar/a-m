@@ -13,7 +13,7 @@ const ProductList = () => {
   const [assets, setAssets] = useState();
   const navigate = useNavigate();
 
-  const getAllAssets = useCallback(() => {
+  const getAllAssets = () => {
     const accessToken = authService.getAuthToken();
 
     if (!accessToken) {
@@ -29,11 +29,12 @@ const ProductList = () => {
           console.log(e);
         });
     }
-  }, [navigate]);
+  };
+  const getAllAssetsCallback = useCallback(getAllAssets, [navigate]);
 
   useEffect(() => {
-    getAllAssets();
-  }, [getAllAssets]);
+    getAllAssetsCallback();
+  }, [getAllAssetsCallback]);
 
   return (
     <div className="ProductList p-5">
@@ -63,6 +64,7 @@ const ProductList = () => {
                 key={asset.serial_number}
                 asset={asset}
                 withButton={true}
+                getAllAssets={getAllAssets}
               />
             ))}
         </Row>

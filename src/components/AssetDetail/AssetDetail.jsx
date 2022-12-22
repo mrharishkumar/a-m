@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { Col, Container, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 import Product from "../Product/Product";
 
@@ -22,6 +23,7 @@ const AssetDetail = (props) => {
 
   const handleSubmit = () => {
     const token = authService.getAuthToken();
+    setRemarks("");
 
     if (!token) {
       authService.logout();
@@ -36,7 +38,11 @@ const AssetDetail = (props) => {
           token
         )
         .then((res) => {
-          if (res.status === 200) props.onHide();
+          props.onHide();
+          if (res.status === 200) {
+            toast("Request has been submitted.");
+            props.getAllAssets();
+          } else toast("Failed to submit request.");
         })
         .catch((err) => {
           console.log(err);
@@ -75,6 +81,7 @@ const AssetDetail = (props) => {
                       style={{ height: "340px" }}
                       name="rs"
                       onChange={handleChange}
+                      value={remarks}
                       required={true}
                     />
                   </Form.Group>
