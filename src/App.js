@@ -36,8 +36,8 @@ function App() {
   return (
     <div className="App">
       <ToastContainer
-        position="top-center"
-        autoClose={5000}
+        position="top-right"
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
