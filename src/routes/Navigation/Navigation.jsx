@@ -32,8 +32,8 @@ const Navigation = () => {
                   <AiFillHome className="fs-4" />
                 </span>
               </NavLink>
-              <span className="fs-5 fst-italic text-light">
-                Welcome ! {authService.getUserName()}
+              <span className="fst-italic text-capitalize text-light pt-1" style={{"fontSize":"16px"}}>
+                Welcome !  {authService.getUserName().toLowerCase()}
               </span>
             </Nav>
             <Nav>
