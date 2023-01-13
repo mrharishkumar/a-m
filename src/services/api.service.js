@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://assets-management.onrender.com/api";
+const BASE_URL = "https://assets-management.onrender.com/api/";
 
 export const ENDPOINTS = {
   EMPLOYEES: "employees",
